@@ -62,7 +62,7 @@ foreach my $bad_dec_meid ( @dec_bad_meids, $hex_meid ) {
 #  test that we can convert a MEID from Hex to Decimal
 is(
     meid_to_dec($hex_meid), $dec_meid,
-    "Convert decimal MEID to Hex: got " . meid_to_hex($dec_meid) . ", expected $hex_meid"
+    "Convert Hex MEID to Dec: got " . meid_to_dec($hex_meid) . ", expected $dec_meid"
 );
 
 #  test that when we put in bad HEX MEID's that the converion to DEC fails

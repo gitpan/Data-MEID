@@ -7,7 +7,7 @@ use warnings;
 use Exporter;
 use Carp;
 use Digest::SHA qw( sha1_hex );
-
+use Math::BigInt;
 
 use vars qw(@ISA @EXPORT_OK);
 
@@ -36,11 +36,11 @@ Data::MEID - Convert, check, and inspect mobile MEID values.
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 =head1 SYNOPSIS
@@ -159,7 +159,7 @@ sub meid_to_dec {
     #  take first 8 digits, convert to hex, then next 6
     $meid =~ m/^(.{8})(.{6})$/;
 
-    my $manufacturer = sprintf("%010d", hex $1);
+    my $manufacturer = sprintf("%010d", Math::BigInt->new("0x$1"));
     my $serial       = sprintf("%08d" , hex $2);
 
     return $manufacturer . $serial;
@@ -252,7 +252,7 @@ sub meid_is_dec {
 
 }
 
-=head2 hex_meid_check_digit
+=head2 meid_check_digit
 
 Calculates the MEID check digit value as described in 3GPP2 X.S0008-0 v3.0.
 For testing purposes, per the spec, AF 01 23 45 0A BC DE has a check digit of 'C'.
