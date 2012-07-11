@@ -8,8 +8,6 @@ use Exporter;
 use Carp;
 use Digest::SHA qw( sha1_hex );
 
-use Data::Dumper;
-
 
 use vars qw(@ISA @EXPORT_OK);
 
@@ -38,11 +36,11 @@ Data::MEID - Convert, check, and inspect mobile MEID values.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 =head1 SYNOPSIS
@@ -92,10 +90,10 @@ Quick summary of what the module does.
     my $manufacturers_code = manu_code_hex( 'A10000009296F2' );
 
     #  get Decimal serial number
-    serial_num_dec( 'A10000009296F2' );
+    my $serial_number = serial_num_dec( 'A10000009296F2' );
 
     #  get Hex serial number
-    serial_num_hex( 'A10000009296F2' );
+    my $serial_number = serial_num_hex( 'A10000009296F2' );
 
 =head1 EXPORT
 
@@ -115,7 +113,7 @@ Quick summary of what the module does.
 
 =head2 meid_to_hex
 
-Convert a decimal MEID to Decimal.  If an invalid Decimal MEID is used, then it will throw
+Convert a Decimal MEID to Hex.  If an invalid Decimal MEID is used, it will throw
 a warning and return 0.
 
 =cut
@@ -143,7 +141,7 @@ sub meid_to_hex {
 
 =head2 meid_to_dec
 
-Convert a Hex MEID to Decimal.  If an invalid Hex MEID is used, then it will throw
+Convert a Hex MEID to Decimal.  If an invalid Hex MEID is used, it will throw
 a warning and return 0.
 
 =cut
@@ -170,7 +168,7 @@ sub meid_to_dec {
 
 =head2 meid_is_valid
 
-Check to see if the MEID looks like a valid MEID, either Decimal or Hex.  If it
+Check to see if a MEID is valid, either Decimal or Hex.  If it
 looks like a Decimal MEID, it returns "dec".  If it looks like a Hex ESN it
 returns "hex".  If it doesn't match either it returns 0
 
@@ -257,11 +255,11 @@ sub meid_is_dec {
 =head2 hex_meid_check_digit
 
 Calculates the MEID check digit value as described in 3GPP2 X.S0008-0 v3.0.
-Per the spec, AF 01 23 45 0A BC DE has a check digit of 'C'.
+For testing purposes, per the spec, AF 01 23 45 0A BC DE has a check digit of 'C'.
 MEID 293608736500703710 has a check digit of '0'.
 
 If a Hex MEID is passed, a Hex check digit is returned.
-if a Decimal MEID is passed, a Decimal check digit is returned.
+If a Decimal MEID is passed, a Decimal check digit is returned.
 
 =cut
 
@@ -360,7 +358,7 @@ sub meid_check_digit {
 
 Calculate the pESN ( Pseudo ESN ) from Decimal or Hex MEID.
 
-Output is Hex ESN.  Use Data::ESN if Decimal ESN's are needed.
+Output is in Hex form.  Use Data::ESN if Decimal ESN's are needed.
 
 =cut
 
@@ -478,7 +476,7 @@ sub serial_num_dec {
 
 =head2 serial_num_hex
 
-Return the serial number in hex form from the MEID.  If we have
+Return the serial number in Hex form from the MEID.  If we have
 a MEID that looks bad, then return 0.
 
 =cut
