@@ -1,5 +1,10 @@
 Revision history for Data-MEID
 
+
+0.02    7.11.2012/00:11
+        Added Test::Carp build requrement
+
+
 0.01    7.10.2012/18:00
         First version, released on an unsuspecting world.
 
