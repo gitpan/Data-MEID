@@ -36,11 +36,11 @@ Data::MEID - Convert, check, and inspect mobile MEID values.
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 =head1 SYNOPSIS
@@ -159,7 +159,8 @@ sub meid_to_dec {
     #  take first 8 digits, convert to hex, then next 6
     $meid =~ m/^(.{8})(.{6})$/;
 
-    my $manufacturer = sprintf("%010d", Math::BigInt->new("0x$1"));
+    my $n = Math::BigInt->new("0x$1");
+    my $manufacturer = sprintf("%010s", $n->bstr );
     my $serial       = sprintf("%08d" , hex $2);
 
     return $manufacturer . $serial;
